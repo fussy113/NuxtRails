@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  db:
+    build: ./db
+    volumes:
+      - ./.data_dev:/var/lib/mysql
+    ports:
+      - "${MYSQL_PORT}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE_DEV}
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    tty: true
+    working_dir: /var/www
+    command: rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ./backend:/var/www
+      - "./.bundle:/usr/local/bundle"
+    ports:
+      - "${BACKEND_PORT}:3000"
+    expose:
+      - "3000"
+    environment:
+      RAILS_ENV: development
+      DATABASE_HOST: db
+      DATABASE_PORT: ${MYSQL_PORT}
+      DATABASE_USER: ${MYSQL_USER}
+      DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+      DATABASE_NAME: ${MYSQL_DATABASE_DEV}
+    depends_on:
+      - db
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    tty: true
+    working_dir: /var/www
+    volumes:
+      - ./frontend:/var/www
+    ports:
+      - "${FRONTEND_PORT}:3000"
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+    command: yarn dev
+    restart: always

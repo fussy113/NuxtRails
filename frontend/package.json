@@ -1,0 +1,27 @@
+{
+  "name": "www",
+  "version": "1.0.0",
+  "description": "My superb Nuxt.js project",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.0.0",
+    "cross-env": "^5.2.0",
+    "install": "^0.12.2",
+    "material-icons": "^0.2.3",
+    "nuxt": "^2.0.0",
+    "vuesax": "^3.8.0"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "2.6.2",
+    "nodemon": "^1.11.0",
+    "prettier": "1.14.3"
+  }
+}

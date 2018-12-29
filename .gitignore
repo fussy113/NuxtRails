@@ -1,0 +1,7 @@
+.data/*
+!.data/.keep
+.data_dev/*
+!.data_dev/.keep
+.bundle/*
+!.bundle/.keep
+.env
